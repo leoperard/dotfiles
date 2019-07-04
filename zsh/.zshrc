@@ -63,7 +63,7 @@ plugins=(
     copydir
     cp
     extract
-    git github gitignore git-extras
+    git gitfast git-extras github gitignore git-prompt
     history history-substring-search
     iterm2
     jira
@@ -71,7 +71,7 @@ plugins=(
     osx
     pip
     python
-    pyenv
+    sudo
     vi-mode
     virtualenv
     web-search
@@ -90,11 +90,11 @@ source $ZSH/oh-my-zsh.sh
 export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='mvim'
-fi
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -121,4 +121,12 @@ source $ZSH/oh-my-zsh.sh
 if [ -f ~/.bash_profile ]; then
     . ~/.bash_profile;
 fi
+
+# autojump fix see: https://github.com/wting/autojump/issues/474
+unsetopt BG_NICE
+
+# the fuck alias for it to work
+eval $(thefuck --alias)
+
+# Github token for brew
 export HOMEBREW_GITHUB_API_TOKEN=03fdbf4eba410bad43b75f1146c6907006747d85
