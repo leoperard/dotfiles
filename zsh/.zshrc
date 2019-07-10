@@ -74,6 +74,7 @@ plugins=(
     sudo
     vi-mode
     virtualenv
+    virtualenvwrapper
     web-search
     zsh-syntax-highlighting
     zsh-autosuggestions
@@ -130,3 +131,9 @@ eval $(thefuck --alias)
 
 # Github token for brew
 export HOMEBREW_GITHUB_API_TOKEN=03fdbf4eba410bad43b75f1146c6907006747d85
+
+# virtualenvwrapper configuration
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/workspace
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+ source /usr/local/bin/virtualenvwrapper.sh
