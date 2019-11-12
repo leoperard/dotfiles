@@ -91,6 +91,7 @@ source $ZSH/oh-my-zsh.sh
 export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
+export EDITOR='vim'
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
@@ -112,7 +113,7 @@ export LANG=en_US.UTF-8
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 ZSH_DISABLE_COMPFIX=true
 ENABLE_CORRECTION=true
@@ -136,4 +137,12 @@ export HOMEBREW_GITHUB_API_TOKEN=03fdbf4eba410bad43b75f1146c6907006747d85
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/workspace
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
- source /usr/local/bin/virtualenvwrapper.sh
+source /usr/local/bin/virtualenvwrapper.sh
+
+export DISPLAY=:0.0
+
+# Docker configuration
+export PATH=$PATH:$HOME/.local/bin
+export DOCKER_HOST=tcp://localhost:2375
+
+export TERM=xterm-256color
