@@ -1,0 +1,41 @@
+"*":
+  Hydrogen:
+    autocomplete: false
+    gateways: "[{\"name\": \"Spark Server\", \"options\": {\"baseUrl\": \"localhost:8888\"}}]"
+    showAutocompleteFirst: false
+    startDir: "projectDirOfFile"
+  "atom-material-ui":
+    colors:
+      abaseColor: "#2196f3"
+      predefinedColor: "Blue"
+    tabs:
+      compactTabs: true
+    ui:
+      panelContrast: true
+  core:
+    disabledPackages: [
+      "symbols-view"
+    ]
+    telemetryConsent: "limited"
+    themes: [
+      "atom-material-ui"
+      "atom-material-syntax-dark"
+    ]
+    uriHandlerRegistration: "always"
+  editor:
+    fontSize: 16
+    preferredLineLength: 100
+    tabLength: 4
+  "exception-reporting":
+    userId: "5670d0a0-4061-4037-9159-80c555a87faf"
+  "linter-pylama":
+    configFileLoad: "Use pylama config"
+    interpreter: "~/.venv/$PROJECT_NAME/bin/pylama, python, python.exe"
+  "linter-ui-default":
+    showPanel: true
+  "python-tools": {}
+  "tree-view":
+    alwaysOpenExisting: true
+    hideVcsIgnoredFiles: true
+  welcome:
+    showOnStartup: false
