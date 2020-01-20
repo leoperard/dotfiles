@@ -23,7 +23,7 @@
     ]
     uriHandlerRegistration: "always"
   editor:
-    fontSize: 15
+    fontSize: 16
     preferredLineLength: 100
     tabLength: 4
   "exception-reporting":
@@ -31,7 +31,8 @@
   "linter-pylama":
     configFileLoad: "Use pylama config"
     interpreter: "~/.venv/$PROJECT_NAME/bin/pylama, python, python.exe"
-  "linter-ui-default": {}
+  "linter-ui-default":
+    showPanel: true
   "python-tools": {}
   "tree-view":
     alwaysOpenExisting: true
