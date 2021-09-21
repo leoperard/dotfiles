@@ -72,6 +72,7 @@ plugins=(
     pip
     python
     sudo
+    tmux
     vi-mode
     virtualenv
     virtualenvwrapper
@@ -117,6 +118,12 @@ export EDITOR='vim'
 
 ZSH_DISABLE_COMPFIX=true
 ENABLE_CORRECTION=true
+
+# Tmux configuration
+ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOSTART_ONCE=true
+ZSH_TMUX_AUTOCONNECT=true
+ZSH_TMUX_AUTOQUIT=true
 
 source $ZSH/oh-my-zsh.sh
 
