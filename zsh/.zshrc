@@ -1,3 +1,17 @@
+if [ -z "$TMUX" ]; then
+    tmux attach -t default || tmux new -s default
+fi
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block, everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block, everything else may go below.
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -6,7 +20,6 @@ export ZSH="$HOME/.oh-my-zsh"
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="powerlevel10k/powerlevel10k"
-source ~/.p9kgt
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -44,7 +57,7 @@ HYPHEN_INSENSITIVE="true"
 HIST_STAMPS="dd/mm/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+ZSH_CUSTOM=~/.oh-my-zsh-custom
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -53,25 +66,28 @@ HIST_STAMPS="dd/mm/yyyy"
 plugins=(
     autoenv
     autojump
+    aws
     brew
     chucknorris
     colored-man-pages
     colorize
     command-not-found
     common-aliases
-    copydir
-    copydir
+    copypath
     cp
     extract
     git gitfast git-extras github gitignore git-prompt
     history history-substring-search
     iterm2
     jira
+    kubectl
     man
-    osx
+    npm
+    nvm
     pip
     python
     sudo
+    thefuck
     tmux
     vi-mode
     virtualenv
@@ -82,11 +98,8 @@ plugins=(
 )
 
 # User configuration
-
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin"
+export PATH=$PATH:"/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
-
-source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
@@ -116,26 +129,17 @@ export EDITOR='vim'
 
 # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-ZSH_DISABLE_COMPFIX=true
 ENABLE_CORRECTION=true
+ZSH_DISABLE_COMPFIX=true
 
 # Tmux configuration
-ZSH_TMUX_AUTOSTART=true
+# ZSH_TMUX_AUTOSTART=true
 ZSH_TMUX_AUTOSTART_ONCE=true
 ZSH_TMUX_AUTOCONNECT=true
 ZSH_TMUX_AUTOQUIT=true
 
-source $ZSH/oh-my-zsh.sh
-
-if [ -f ~/.bash_profile ]; then
-    . ~/.bash_profile;
-fi
-
 # autojump fix see: https://github.com/wting/autojump/issues/474
 unsetopt BG_NICE
-
-# the fuck alias for it to work
-eval $(thefuck --alias)
 
 # Github token for brew
 export HOMEBREW_GITHUB_API_TOKEN=03fdbf4eba410bad43b75f1146c6907006747d85
@@ -143,13 +147,32 @@ export HOMEBREW_GITHUB_API_TOKEN=03fdbf4eba410bad43b75f1146c6907006747d85
 # virtualenvwrapper configuration
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/workspace
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-source /usr/local/bin/virtualenvwrapper.sh
+export VIRTUALENVWRAPPER_SCRIPT=/usr/bin/virtualenvwrapper.sh
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+source /usr/bin/virtualenvwrapper.sh
 
-export DISPLAY=:0.0
+source $ZSH/oh-my-zsh.sh
+
+# export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
 
 # Docker configuration
 export PATH=$PATH:$HOME/.local/bin
-export DOCKER_HOST=tcp://localhost:2375
+# export DOCKER_HOST=tcp://localhost:2375
 
+# Custom installation configuration
+export PATH=$PATH:$HOME/install/bin
 export TERM=xterm-256color
+
+# Kubernetes Conf
+export KUBEHOME=$HOME/.kube
+export KUBECONFIG=$KUBEHOME/config
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# export PATH=$PATH:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32
+while read line; do export $line; done < /etc/environment
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
