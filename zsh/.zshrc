@@ -1,7 +1,3 @@
-if [ -z "$TMUX" ]; then
-    tmux attach -t default || tmux new -s default
-fi
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block, everything else may go below.
@@ -84,7 +80,9 @@ plugins=(
     man
     npm
     nvm
+    macos
     pip
+    poetry
     python
     sudo
     thefuck
@@ -147,9 +145,9 @@ export HOMEBREW_GITHUB_API_TOKEN=03fdbf4eba410bad43b75f1146c6907006747d85
 # virtualenvwrapper configuration
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/workspace
-export VIRTUALENVWRAPPER_SCRIPT=/usr/bin/virtualenvwrapper.sh
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
-source /usr/bin/virtualenvwrapper.sh
+export VIRTUALENVWRAPPER_SCRIPT=/opt/homebrew/bin/virtualenvwrapper.sh
+export VIRTUALENVWRAPPER_PYTHON=/opt/homebrew/bin/python3
+source /opt/homebrew/bin/virtualenvwrapper.sh
 
 source $ZSH/oh-my-zsh.sh
 
@@ -171,8 +169,12 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# export PATH=$PATH:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32
-while read line; do export $line; done < /etc/environment
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/lperard/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+
+# Proxy for ubisoft
+ALL_PROXY=proxy.ubisoft.org:3128
