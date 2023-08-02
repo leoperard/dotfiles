@@ -344,8 +344,8 @@ set -g mouse on
 # set -g prefix C-a
 # bind C-a send-prefix
 unbind C-b
-set-option -g prefix M-x
-bind-key M-x send-prefix
+set-option -g prefix C-Space
+bind-key C-Space send-prefix
 # move status line to top
 #set -g status-position top
 
@@ -388,7 +388,6 @@ tmux_conf_uninstall_plugins_on_reload=true
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
-set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-yank'
 set -g @plugin 'tmux-plugins/tmux-pain-control'
 set -g @plugin 'tmux-plugins/tmux-copycat'
@@ -396,7 +395,7 @@ set -g @plugin 'tmux-plugins/tmux-open'
 set -g @plugin 'tmux-plugins/tmux-battery'
 set -g @plugin 'tmux-plugins/tmux-cpu'
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
-set -g @plugin 'xamut/tmux-weather'
+# set -g @plugin 'xamut/tmux-weather'
 set -g @continuum-restore 'on'
 
 
