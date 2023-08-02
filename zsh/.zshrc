@@ -1,4 +1,5 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block, everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -71,38 +72,54 @@ plugins=(
     common-aliases
     copypath
     cp
+    docker
+    docker-compose
+    dotenv
+    emoji
     extract
-    git gitfast git-extras github gitignore git-prompt
+    gcloud
+    git git-auto-fetch gitfast git-extras github gitignore git-prompt
     history history-substring-search
+    hitchhiker
     iterm2
     jira
     kubectl
+    kubectx
+    macos
     man
+    minikube
     npm
     nvm
     macos
     pip
-    poetry
     python
+    rust
     sudo
+    terraform
     thefuck
     tmux
+    vault
     vi-mode
     virtualenv
     virtualenvwrapper
+    vscode
     web-search
+    zsh-proxy
     zsh-syntax-highlighting
     zsh-autosuggestions
 )
 
 # User configuration
-export PATH=$PATH:"/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin"
+export PATH="/opt/homebrew/bin:$PATH"
+export PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
+alias vi="nvim"
+alias vim="nvim"
 export EDITOR='vim'
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
@@ -131,7 +148,7 @@ ENABLE_CORRECTION=true
 ZSH_DISABLE_COMPFIX=true
 
 # Tmux configuration
-# ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOSTART=true
 ZSH_TMUX_AUTOSTART_ONCE=true
 ZSH_TMUX_AUTOCONNECT=true
 ZSH_TMUX_AUTOQUIT=true
@@ -178,3 +195,15 @@ export PATH="/Users/lperard/.rd/bin:$PATH"
 
 # Proxy for ubisoft
 ALL_PROXY=proxy.ubisoft.org:3128
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /opt/homebrew/bin/terraform terraform
+
+# gcloud configuration
+source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
