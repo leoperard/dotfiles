@@ -76,3 +76,20 @@ make dotfiles
 2. Add the mapping to `scripts/link.sh` in the `MAPPINGS` array (`"tool/config.file:.config/tool/config.file"`).
 3. If the tool requires a brew package, add it to `Brewfile`.
 4. Run `make dotfiles` and `make check`.
+
+---
+
+## Agent skills
+
+### Issue tracker
+
+GitHub issues (`leoperard/dotfiles`). See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Five canonical triage roles with default label strings. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context documentation layout. See `docs/agents/domain.md`.
+
