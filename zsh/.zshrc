@@ -104,7 +104,6 @@ plugins=(
     virtualenvwrapper
     vscode
     web-search
-    zsh-proxy
     zsh-syntax-highlighting
     zsh-autosuggestions
 )
@@ -147,17 +146,16 @@ export EDITOR='vim'
 ENABLE_CORRECTION=true
 ZSH_DISABLE_COMPFIX=true
 
-# Tmux configuration
-ZSH_TMUX_AUTOSTART=true
-ZSH_TMUX_AUTOSTART_ONCE=true
-ZSH_TMUX_AUTOCONNECT=true
-ZSH_TMUX_AUTOQUIT=true
+# Tmux configuration (handled by custom workspace session launcher)
+ZSH_TMUX_AUTOSTART=false
+ZSH_TMUX_AUTOSTART_ONCE=false
+ZSH_TMUX_AUTOCONNECT=false
+ZSH_TMUX_AUTOQUIT=false
 
 # autojump fix see: https://github.com/wting/autojump/issues/474
 unsetopt BG_NICE
 
-# Github token for brew
-export HOMEBREW_GITHUB_API_TOKEN=03fdbf4eba410bad43b75f1146c690700674785
+# Machine-specific tokens (e.g. HOMEBREW_GITHUB_API_TOKEN) belong in ~/.zshrc.local
 
 source $ZSH/oh-my-zsh.sh
 
@@ -173,11 +171,11 @@ export PATH=$PATH:$HOME/.local/bin
 
 # Custom installation configuration
 export PATH=$PATH:$HOME/install/bin
-export TERM=xterm-256color
+export TERM=tmux-256color
 
 # Kubernetes Conf
 export KUBEHOME=$HOME/.kube
-export KUBECONFIG=$KUBEHOME/config
+export KUBECONFIG=$KUBEHOME/config:$(find $KUBEHOME -name "*.yaml" | tr '\n' ':')
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loas nvm
@@ -187,11 +185,8 @@ export NVM_DIR="$HOME/.nvm"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/lperard/.rd/bin:$PATH"
+export PATH="$HOME/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
-
-# Proxy for ubisoft
-ALL_PROXY=proxy.ubisoft.org:3128
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
@@ -202,11 +197,104 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
 # gcloud configuration
-source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
-source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+if command -v brew >/dev/null 2>&1; then
+  [ -f "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc" ] && source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+  [ -f "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc" ] && source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+fi
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/lperard/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/lperard/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/lperard/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/lperard/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
+[ -f ~/.tecton-complete.zsh ] && . ~/.tecton-complete.zsh
+export CHALK_INSTALL="$HOME/.chalk"
+export PATH="$CHALK_INSTALL/bin:$PATH"
+command -v uv >/dev/null 2>&1 && eval "$(uv generate-shell-completion zsh)"
+
+# Added by Antigravity CLI installer
+export PATH="$HOME/.local/bin:$PATH"
+
+# Added by Antigravity IDE
+export PATH="$HOME/.antigravity-ide/antigravity-ide/bin:$PATH"
+
+# Machine-specific / local overrides and secrets
+if [ -f "$HOME/.zshrc.local" ]; then
+  source "$HOME/.zshrc.local"
+fi
+
+# ==============================================================================
+# Workspace & Agent Dual Workflow Configuration
+# ==============================================================================
+
+# 1. Automatic Session & Directory-Based Environment Loading
+_load_work_env_if_applicable() {
+  if [ -n "$TMUX" ]; then
+    local _s=$(tmux display-message -p -t "$TMUX_PANE" '#S' 2>/dev/null)
+    if [[ "$_s" == "work"* ]]; then
+      [ -f "$HOME/.work_env" ] && source "$HOME/.work_env"
+      return
+    fi
+  fi
+  if [[ "$PWD" == *"/workspace/work"* ]]; then
+    [ -f "$HOME/.work_env" ] && source "$HOME/.work_env"
+  elif [[ "$PWD" == *"/workspace/personal"* ]]; then
+    unset JIRA_PERSONAL_TOKEN CONFLUENCE_PERSONAL_TOKEN
+  fi
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook chpwd _load_work_env_if_applicable
+_load_work_env_if_applicable
+
+# 2. Work / Personal Session Launchers
+work() {
+  [ -f "$HOME/.work_env" ] && source "$HOME/.work_env"
+  if [ -n "$TMUX" ]; then
+    tmux switch-client -t work 2>/dev/null || (tmux new-session -d -s work -c "$HOME/workspace/work" && tmux switch-client -t work)
+  else
+    tmux new-session -A -s work -c "$HOME/workspace/work"
+  fi
+}
+
+personal() {
+  if [ -n "$TMUX" ]; then
+    tmux switch-client -t personal 2>/dev/null || (tmux new-session -d -s personal -c "$HOME/workspace/personal" && tmux switch-client -t personal)
+  else
+    tmux new-session -A -s personal -c "$HOME/workspace/personal"
+  fi
+}
+
+# 2. Claude Code Safety Guardrail
+claude() {
+  if [[ "$PWD" == *"/workspace/personal"* ]]; then
+    if [[ "$1" == "--force" ]]; then
+      shift
+      command claude "$@"
+    else
+      print -P "%F{red}⛔ Claude Code is restricted to work projects.%f"
+      print -P "%F{yellow}Current directory:%f $PWD"
+      print -P "%F{cyan}Use Antigravity ('agy') for personal projects, or pass '--force' / use '\\claude' to bypass.%f"
+      return 1
+    fi
+  else
+    command claude "$@"
+  fi
+}
+
+# 3. Interactive Session Picker on Terminal Startup
+if [[ -o interactive ]] && [[ -t 0 ]] && [[ -z "$TMUX" ]] && [[ -z "$ANTIGRAVITY_SHELL" ]] && [[ -z "$VSCODE_INJECTION" ]] && [[ -z "$CI" ]]; then
+  print -P "%F{cyan}┌────────────────────────────────────────────────────────┐%f"
+  print -P "%F{cyan}│%f  %BSelect Workspace Session:%b                             %F{cyan}│%f"
+  print -P "%F{cyan}│%f   %F{yellow}[1]%f 🏢  %BWork%b      (Claude Code, EA GitLab, Jira)     %F{cyan}│%f"
+  print -P "%F{cyan}│%f   %F{green}[2]%f 🏠  %BPersonal%b  (Antigravity, GitHub)             %F{cyan}│%f"
+  print -P "%F{cyan}│%f   %F{blue}[3]%f ⚡  %BScratch%b   (Direct shell without tmux)       %F{cyan}│%f"
+  print -P "%F{cyan}└────────────────────────────────────────────────────────┘%f"
+  read -k 1 "choice?Choice [1/2/3] (default 1): "
+  echo
+  case "$choice" in
+    2) personal ;;
+    3) ;;
+    *) work ;;
+  esac
+fi

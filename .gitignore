@@ -1,0 +1,16 @@
+# OS artifacts
+.DS_Store
+
+# Local overrides and secrets (never commit)
+*.local
+.zshrc.local
+.gitconfig-work
+.env
+.env.*
+!.env.example
+
+# Temporary and backup files
+*.bak
+*.tmp
+*.swp
+*~

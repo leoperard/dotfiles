@@ -1,0 +1,13 @@
+[core]
+	editor = nvim
+	excludesfile = ~/.gitignore_global
+[user]
+	name = Leo Perard
+[push]
+	autoSetupRemote = true
+
+[includeIf "gitdir:~/workspace/work/"]
+	path = ~/.gitconfig-work
+
+[includeIf "gitdir:~/workspace/personal/"]
+	path = ~/.gitconfig-personal
