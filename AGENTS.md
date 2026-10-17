@@ -15,6 +15,7 @@ Dotfile configurations live in dedicated subdirectories and are symlinked into t
 | `git/.gitconfig-personal` | `~/.gitconfig-personal` | Personal Git name/email identity |
 | `git/.gitignore_global` | `~/.gitignore_global` | Global file ignore patterns |
 | `tmux/.tmux.conf.local` | `~/.tmux.conf.local` | Customization for `gpakosz/.tmux` |
+| `zsh/.zprofile` | `~/.zprofile` | Login shell environment & Homebrew shellenv |
 | `zsh/.zshrc` | `~/.zshrc` | Interactive Zsh configuration & dual workflow |
 | `zsh/.p10k.zsh` | `~/.p10k.zsh` | Powerlevel10k theme configuration |
 | `vim/.vimrc` | `~/.vimrc` | Minimal fallback Vim configuration |
