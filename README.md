@@ -46,7 +46,7 @@ make check
 | :--- | :--- | :--- |
 | **`alacritty/`** | `~/.config/alacritty/alacritty.toml` | Fast, GPU-accelerated terminal emulator |
 | **`git/`** | `~/.gitconfig`, `~/.gitconfig-personal`, `~/.gitignore_global` | Global Git config with conditional work/personal identity |
-| **`zsh/`** | `~/.zshrc`, `~/.p10k.zsh` | Oh-My-Zsh, Powerlevel10k, and workspace session launcher |
+| **`zsh/`** | `~/.zprofile`, `~/.zshrc`, `~/.p10k.zsh` | Oh-My-Zsh, Powerlevel10k, and workspace session launcher |
 | **`tmux/`** | `~/.tmux.conf.local` | Customizations for [gpakosz/.tmux](https://github.com/gpakosz/.tmux) |
 | **`vim/`** | `~/.vimrc` | Minimal fallback Vim configuration |
 | **`scripts/`** | Helper scripts | `bootstrap.sh`, `link.sh`, and `check.sh` |

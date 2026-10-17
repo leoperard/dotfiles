@@ -78,7 +78,7 @@ plugins=(
     emoji
     extract
     gcloud
-    git git-auto-fetch gitfast git-extras github gitignore git-prompt
+    git git-auto-fetch gitfast git-extras gh gitignore git-prompt
     history history-substring-search
     hitchhiker
     iterm2

@@ -17,6 +17,7 @@ done
 
 # Define source -> destination mappings (relative to REPO_DIR -> relative to HOME)
 declare -a MAPPINGS=(
+  "zsh/.zprofile:.zprofile"
   "zsh/.zshrc:.zshrc"
   "zsh/.p10k.zsh:.p10k.zsh"
   "alacritty/alacritty.toml:.config/alacritty/alacritty.toml"

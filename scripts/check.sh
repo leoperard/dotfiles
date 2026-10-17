@@ -12,6 +12,7 @@ echo ""
 # 1. Check symlink integrity
 echo "1. Checking symlinks..."
 declare -a TARGETS=(
+  ".zprofile"
   ".zshrc"
   ".p10k.zsh"
   ".config/alacritty/alacritty.toml"
