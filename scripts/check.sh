@@ -19,6 +19,7 @@ declare -a TARGETS=(
   ".gitconfig-personal"
   ".gitignore_global"
   ".tmux.conf.local"
+  ".local/bin/radar"
 )
 
 for rel in "${TARGETS[@]}"; do
@@ -43,9 +44,9 @@ echo ""
 # 2. Secret audit
 echo "2. Auditing repository for leaked tokens & secrets..."
 SECRET_PATTERNS='(ghp_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{82}|gho_[A-Za-z0-9]{36}|AKIA[0-9A-Z]{16}|HOMEBREW_GITHUB_API_TOKEN=[a-f0-9]{40})'
-if grep -rE --exclude-dir=.git "$SECRET_PATTERNS" "$REPO_DIR" > /dev/null 2>&1; then
+if grep -rIE --exclude-dir=.git --exclude-dir=__pycache__ "$SECRET_PATTERNS" "$REPO_DIR" > /dev/null 2>&1; then
   echo "  [FAIL] Potential exposed secrets detected in repository files!"
-  grep -rnE --exclude-dir=.git "$SECRET_PATTERNS" "$REPO_DIR" || true
+  grep -rnIE --exclude-dir=.git --exclude-dir=__pycache__ "$SECRET_PATTERNS" "$REPO_DIR" || true
   ERRORS=$((ERRORS + 1))
 else
   echo "  [OK] No leaked credentials detected in tracked files."
@@ -54,9 +55,9 @@ fi
 echo ""
 # 3. Check for hardcoded /Users/ usernames in tracked files (excluding markdown docs)
 echo "3. Checking for non-portable hardcoded user home directories..."
-if grep -rn --exclude-dir=.git --exclude='*.md' -E '/Users/[a-zA-Z0-9_-]+|/home/[a-zA-Z0-9_-]+' "$REPO_DIR" | grep -v 'binary' > /dev/null 2>&1; then
+if grep -rnI --exclude-dir=.git --exclude-dir=__pycache__ --exclude='*.md' -E '/Users/[a-zA-Z0-9_-]+|/home/[a-zA-Z0-9_-]+' "$REPO_DIR" > /dev/null 2>&1; then
   echo "  [WARN] Found hardcoded user home paths (use \$HOME or ~ instead):"
-  grep -rn --exclude-dir=.git --exclude='*.md' -E '/Users/[a-zA-Z0-9_-]+|/home/[a-zA-Z0-9_-]+' "$REPO_DIR" || true
+  grep -rnI --exclude-dir=.git --exclude-dir=__pycache__ --exclude='*.md' -E '/Users/[a-zA-Z0-9_-]+|/home/[a-zA-Z0-9_-]+' "$REPO_DIR" || true
   WARNINGS=$((WARNINGS + 1))
 else
   echo "  [OK] No hardcoded user paths found in configuration files. Fully portable."
@@ -73,6 +74,29 @@ for cmd in zsh git tmux nvim alacritty uv; do
     WARNINGS=$((WARNINGS + 1))
   fi
 done
+
+echo ""
+# 5. Radar data files & test suite
+echo "5. Checking radar..."
+if command -v python3 >/dev/null 2>&1; then
+  for data in watchlist.json discover.json; do
+    if python3 -m json.tool "$REPO_DIR/radar/$data" > /dev/null 2>&1; then
+      echo "  [OK] radar/$data is valid JSON"
+    else
+      echo "  [FAIL] radar/$data is not valid JSON"
+      ERRORS=$((ERRORS + 1))
+    fi
+  done
+  if python3 -m unittest discover -s "$REPO_DIR/radar" > /dev/null 2>&1; then
+    echo "  [OK] radar tests pass"
+  else
+    echo "  [FAIL] radar tests fail (run: python3 -m unittest discover -s radar -v)"
+    ERRORS=$((ERRORS + 1))
+  fi
+else
+  echo "  [WARN] python3 not in PATH; radar is unavailable"
+  WARNINGS=$((WARNINGS + 1))
+fi
 
 echo ""
 echo "==> Summary: $ERRORS error(s), $WARNINGS warning(s)"

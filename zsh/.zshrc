@@ -282,7 +282,36 @@ claude() {
   fi
 }
 
-# 3. Interactive Session Picker on Terminal Startup
+# 3. Radar: daily-cached feature & new tool discovery (radar/radar.py, run `radar` to review)
+#    Never touches the network on startup: it only reads a cache file, and a detached
+#    background job refreshes that cache when it is older than 24h.
+_radar_notify() {
+  add-zsh-hook -d precmd _radar_notify  # once, at the first prompt (keeps p10k instant prompt quiet)
+  local cache="${RADAR_CACHE_DIR:-${XDG_CACHE_HOME:-$HOME/.cache}/radar}"
+  local -a fresh=("$cache"/last_refresh(N.mh-24))
+  if (( ! ${#fresh} )); then
+    radar refresh --if-stale &>/dev/null &!
+  fi
+  [[ -s "$cache/banner.txt" ]] || return 0
+  local banner="$(<"$cache/banner.txt")"
+  local session="$(tmux display-message -p -t "$TMUX_PANE" '#S' 2>/dev/null)"
+  if [[ "$session" == work* || "$session" == personal* ]]; then
+    # Show each distinct banner once per tmux session rather than in every new pane
+    [[ "$(tmux show-environment -t "$session" RADAR_SEEN 2>/dev/null)" == "RADAR_SEEN=$banner" ]] && return 0
+    tmux set-environment -t "$session" RADAR_SEEN "$banner"
+  elif [[ "$PWD" == *"/workspace/work"* || "$PWD" == *"/workspace/personal"* ]]; then
+    [[ "$RADAR_SEEN" == "$banner" ]] && return 0
+    export RADAR_SEEN="$banner"
+  else
+    return 0
+  fi
+  print -r -- "$banner"
+}
+if [[ -o interactive ]] && [[ -t 1 ]] && [[ -z "$ANTIGRAVITY_SHELL" ]] && [[ -z "$VSCODE_INJECTION" ]] && [[ -z "$CI" ]] && (( $+commands[radar] )); then
+  add-zsh-hook precmd _radar_notify
+fi
+
+# 4. Interactive Session Picker on Terminal Startup
 if [[ -o interactive ]] && [[ -t 0 ]] && [[ -z "$TMUX" ]] && [[ -z "$ANTIGRAVITY_SHELL" ]] && [[ -z "$VSCODE_INJECTION" ]] && [[ -z "$CI" ]]; then
   print -P "%F{cyan}┌────────────────────────────────────────────────────────┐%f"
   print -P "%F{cyan}│%f  %BSelect Workspace Session:%b                             %F{cyan}│%f"

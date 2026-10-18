@@ -18,6 +18,7 @@ Dotfile configurations live in dedicated subdirectories and are symlinked into t
 | `zsh/.zshrc` | `~/.zshrc` | Interactive Zsh configuration & dual workflow |
 | `zsh/.p10k.zsh` | `~/.p10k.zsh` | Powerlevel10k theme configuration |
 | `vim/.vimrc` | `~/.vimrc` | Minimal fallback Vim configuration |
+| `radar/radar.py` | `~/.local/bin/radar` | Release & new-tool radar (tests: `python3 -m unittest discover -s radar`) |
 
 ### Dependencies & External Components
 * **Neovim**: Neovim configuration is tracked in a dedicated repository (`leoperard/kickstart.nvim`) and managed via `make nvim` into `~/.config/nvim`.
