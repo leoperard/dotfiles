@@ -56,6 +56,22 @@ make check
 
 ---
 
+## 🐚 Shell Plugins & Modern Tooling
+
+The Zsh configuration in `zsh/.zshrc` is optimized for instantaneous launch speeds (~45ms) and includes curated plugins and modern CLI tools:
+
+* **Directory Navigation**: `zoxide` (`z <dir>` / `zi`, with `j` alias for autojump compatibility)
+* **Environment Automation**: `direnv` (`.envrc` / `.env` loaded on entry, unloaded on `cd ..`)
+* **Node Version Management**: `fnm` (Fast Node Manager in Rust, sub-millisecond `.nvmrc` auto-switch)
+* **Python Environments**: `uv` and `virtualenvwrapper` (`workon`, `mkvirtualenv`)
+* **File Viewer & Pager**: `bat` (syntax-highlighted cat and colorized man pager)
+* **Git & Cloud**: `git`, `gitignore`, `docker` (`dc`), `kubectl` (`k`), `kubectx`, `terraform` (`tf`), `gcloud`, `minikube`, `vault`
+* **Interactive UX**: `history-substring-search` (Up/Down prefix matching), `zsh-autosuggestions`, `zsh-syntax-highlighting`, `sudo` (double-Esc)
+
+📖 See **[docs/SHELL_PLUGINS.md](docs/SHELL_PLUGINS.md)** for a complete reference of every active plugin, alias, and command.
+
+---
+
 ## 🔒 Secrets & Local Overrides
 
 Private credentials, company-specific tokens, and machine-local configurations are **never tracked in git**:

@@ -61,51 +61,38 @@ ZSH_CUSTOM=~/.oh-my-zsh-custom
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    autoenv
-    autojump
-    aws
+    # Essential Utilities & Productivity
     brew
-    chucknorris
-    colored-man-pages
-    colorize
-    command-not-found
     common-aliases
     copypath
     cp
-    docker
-    docker-compose
-    dotenv
-    emoji
     extract
-    gcloud
-    git git-auto-fetch gitfast git-extras gh gitignore git-prompt
-    history history-substring-search
-    hitchhiker
-    iterm2
-    jira
+    macos
+    sudo
+
+    # Git
+    git
+    gitignore
+
+    # Cloud & Containers
+    docker
     kubectl
     kubectx
-    macos
-    man
-    minikube
-    npm
-    nvm
-    macos
-    pip
-    python
-    rust
-    sudo
     terraform
-    thefuck
-    tmux
+    gcloud
+    minikube
     vault
-    vi-mode
-    virtualenv
+
+    # Languages & Runtimes
+    npm
+    rust
+    pip
     virtualenvwrapper
-    vscode
-    web-search
-    zsh-syntax-highlighting
+
+    # Interactive UX & Line Editing
+    history-substring-search
     zsh-autosuggestions
+    zsh-syntax-highlighting
 )
 
 # User configuration
@@ -141,8 +128,6 @@ export EDITOR='vim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
 ENABLE_CORRECTION=true
 ZSH_DISABLE_COMPFIX=true
 
@@ -152,18 +137,41 @@ ZSH_TMUX_AUTOSTART_ONCE=false
 ZSH_TMUX_AUTOCONNECT=false
 ZSH_TMUX_AUTOQUIT=false
 
-# autojump fix see: https://github.com/wting/autojump/issues/474
-unsetopt BG_NICE
-
 # Machine-specific tokens (e.g. HOMEBREW_GITHUB_API_TOKEN) belong in ~/.zshrc.local
+
+# virtualenvwrapper configuration (must be exported before oh-my-zsh loads plugin)
+export WORKON_HOME=$HOME/.virtualenvs
 
 source $ZSH/oh-my-zsh.sh
 
-# virtualenvwrapper configuration
-export WORKON_HOME=$HOME/.virtualenvs
-source virtualenvwrapper.sh
+# Modern CLI Tools & Replacements
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init zsh)"
+  alias j=z
+  alias ji=zi
+fi
 
-# export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
+if command -v direnv >/dev/null 2>&1; then
+  eval "$(direnv hook zsh)"
+fi
+
+if command -v fnm >/dev/null 2>&1; then
+  eval "$(fnm env --use-on-cd)"
+fi
+
+if command -v bat >/dev/null 2>&1; then
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
+
+if command -v thefuck >/dev/null 2>&1; then
+  fuck() {
+    unfunction fuck
+    eval $(thefuck --alias)
+    fuck "$@"
+  }
+fi
+
+alias dc="docker compose"
 
 # Docker configuration
 export PATH=$PATH:$HOME/.local/bin
@@ -177,10 +185,6 @@ export TERM=tmux-256color
 export KUBEHOME=$HOME/.kube
 export KUBECONFIG=$KUBEHOME/config:$(find $KUBEHOME -name "*.yaml" | tr '\n' ':')
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loas nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -193,20 +197,10 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /opt/homebrew/bin/terraform terraform
-
-# gcloud configuration
-if command -v brew >/dev/null 2>&1; then
-  [ -f "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc" ] && source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
-  [ -f "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc" ] && source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+if command -v terraform >/dev/null 2>&1; then
+  autoload -U +X bashcompinit && bashcompinit
+  complete -o nospace -C "$(command -v terraform)" terraform
 fi
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
 [ -f ~/.tecton-complete.zsh ] && . ~/.tecton-complete.zsh
 export CHALK_INSTALL="$HOME/.chalk"
 export PATH="$CHALK_INSTALL/bin:$PATH"

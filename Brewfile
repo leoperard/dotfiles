@@ -15,7 +15,10 @@ brew "tree"
 brew "wget"
 
 # Shell enhancements & Productivity
-brew "autojump"
+brew "zoxide"
+brew "direnv"
+brew "fnm"
+brew "bat"
 brew "thefuck"
 brew "uv"
 
