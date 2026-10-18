@@ -10,8 +10,9 @@ show_help() {
 Usage: ./scripts/bootstrap.sh [OPTIONS]
 
 Options:
-  --all        Full bootstrap (brew + dotfiles + zsh + tmux + nvim) (default)
+  --all        Full bootstrap (brew + alacritty + dotfiles + zsh + tmux + nvim) (default)
   --brew       Install Homebrew (if missing) and bundle Brewfile packages
+  --alacritty  Install or update Alacritty via GitHub release
   --dotfiles   Link all configuration files into place
   --zsh        Install Oh-My-Zsh & plugins
   --tmux       Install gpakosz/.tmux framework
@@ -30,6 +31,9 @@ case "$TARGET" in
     ;;
   --brew)
     make brew
+    ;;
+  --alacritty)
+    make alacritty
     ;;
   --dotfiles)
     make dotfiles

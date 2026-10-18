@@ -27,8 +27,8 @@ brew "kubectl"
 brew "kubectx"
 brew "helm"
 
-# Terminal Emulator & GUI Applications
-cask "alacritty"
+# Terminal Emulator & GUI Applications (Alacritty installed via scripts/install_alacritty.sh due to Homebrew cask disablement)
+# cask "alacritty"
 
 # Nerd Fonts (required for Powerlevel10k and terminal glyphs)
 cask "font-meslo-lg-nerd-font"

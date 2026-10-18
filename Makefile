@@ -3,12 +3,13 @@ SHELL := /bin/bash
 REPO_DIR := $(shell pwd)
 ZSH_CUSTOM ?= $(HOME)/.oh-my-zsh/custom
 
-.PHONY: help all dotfiles brew zsh tmux nvim check clean
+.PHONY: help all dotfiles brew alacritty zsh tmux nvim check clean
 
 help:
 	@echo "Available targets:"
 	@echo "  make dotfiles   - Safely link all config files (Alacritty, Git, Zsh, Tmux)"
 	@echo "  make brew       - Install Homebrew (if missing) and bundle Brewfile"
+	@echo "  make alacritty  - Install or update Alacritty directly from GitHub releases"
 	@echo "  make zsh        - Install Oh-My-Zsh, plugins, and Powerlevel10k idempotently"
 	@echo "  make tmux       - Install and configure gpakosz/.tmux framework"
 	@echo "  make nvim       - Clone / update kickstart.nvim configuration"
@@ -26,6 +27,10 @@ brew:
 		if [ -d "/opt/homebrew/bin" ]; then eval "$$(/opt/homebrew/bin/brew shellenv)"; fi; \
 	fi
 	@brew bundle --file="$(REPO_DIR)/Brewfile"
+
+alacritty:
+	@echo "==> Setting up Alacritty terminal..."
+	@./scripts/install_alacritty.sh
 
 zsh: dotfiles
 	@echo "==> Setting up Zsh environment..."
@@ -73,5 +78,5 @@ nvim:
 check:
 	@./scripts/check.sh
 
-all: brew dotfiles zsh tmux nvim check
+all: brew alacritty dotfiles zsh tmux nvim check
 	@echo "==> All dotfiles and dependencies successfully set up!"
