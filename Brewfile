@@ -1,7 +1,5 @@
 # Brewfile - Declarative package management for macOS
 
-# Taps
-tap "homebrew/bundle"
 
 # Core Terminal & CLI Utilities
 brew "zsh"
