@@ -145,28 +145,31 @@ export WORKON_HOME=$HOME/.virtualenvs
 source $ZSH/oh-my-zsh.sh
 
 # Modern CLI Tools & Replacements
-if command -v zoxide >/dev/null 2>&1; then
+if (( $+commands[zoxide] )); then
   eval "$(zoxide init zsh)"
+  # autojump backward-compatibility aliases
   alias j=z
   alias ji=zi
 fi
 
-if command -v direnv >/dev/null 2>&1; then
+if (( $+commands[direnv] )); then
   eval "$(direnv hook zsh)"
 fi
 
-if command -v fnm >/dev/null 2>&1; then
+if (( $+commands[fnm] )); then
   eval "$(fnm env --use-on-cd)"
 fi
 
-if command -v bat >/dev/null 2>&1; then
+if (( $+commands[bat] )); then
   export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+  alias ccat="bat"
 fi
 
-if command -v thefuck >/dev/null 2>&1; then
+if (( $+commands[thefuck] )); then
+  # Lazy-load thefuck to eliminate ~140ms startup delay
   fuck() {
     unfunction fuck
-    eval $(thefuck --alias)
+    eval "$(thefuck --alias)"
     fuck "$@"
   }
 fi
@@ -197,10 +200,6 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 
-if command -v terraform >/dev/null 2>&1; then
-  autoload -U +X bashcompinit && bashcompinit
-  complete -o nospace -C "$(command -v terraform)" terraform
-fi
 [ -f ~/.tecton-complete.zsh ] && . ~/.tecton-complete.zsh
 export CHALK_INSTALL="$HOME/.chalk"
 export PATH="$CHALK_INSTALL/bin:$PATH"
