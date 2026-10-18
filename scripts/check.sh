@@ -100,6 +100,16 @@ else
 fi
 
 echo ""
+# 6. Check tmux agentic cockpit configuration & tests
+echo "6. Checking tmux agentic cockpit..."
+if bash "$REPO_DIR/tmux/test_tmux_cockpit.sh" > /dev/null 2>&1; then
+  echo "  [OK] tmux agentic cockpit tests pass"
+else
+  echo "  [FAIL] tmux agentic cockpit tests failed (run: bash tmux/test_tmux_cockpit.sh)"
+  ERRORS=$((ERRORS + 1))
+fi
+
+echo ""
 echo "==> Summary: $ERRORS error(s), $WARNINGS warning(s)"
 if [ "$ERRORS" -gt 0 ]; then
   exit 1

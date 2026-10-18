@@ -1,4 +1,4 @@
-# : << EOF
+# : << 'EOF'
 # https://github.com/gpakosz/.tmux
 # (‑●‑●)> dual licensed under the WTFPL v2 license and the MIT license,
 #         without any warranty.
@@ -227,7 +227,7 @@ tmux_conf_theme_right_separator_sub='\uE0B3'  #   PowerlineSymbols.otf font, see
 #     - #{username}
 #     - #{username_ssh}
 tmux_conf_theme_status_left=" #S "
-tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized} #{weather} #{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} "
+tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized} #{agent_status} , #{weather} #{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} "
 
 # status left style
 tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_6,$tmux_conf_theme_colour_7,$tmux_conf_theme_colour_8"
@@ -344,6 +344,10 @@ unbind C-b
 set -g prefix C-Space
 bind C-Space send-prefix
 
+# agentic terminal cockpit: floating agent popup (C-Space a) & Escape to detach popup
+bind a run "cut -c3- '#{TMUX_CONF_LOCAL}' | sh -s _toggle_agent_popup '#{session_name}' '#{pane_current_path}'"
+bind -n Escape if-shell -F '#{m:agent-popup*,#{session_name}}' 'detach-client' 'send-keys Escape'
+
 # move status line to top
 # set -g status-position top
 
@@ -419,6 +423,43 @@ set -g @continuum-restore 'on'
 #
 # online() {
 #   ping -c 1 1.1.1.1 >/dev/null 2>&1 && printf '✔' || printf '✘'
+# }
+#
+# agent_status() {
+#   if pgrep -fl '^(/.*/)?(agy|claude)([[:space:]]|$)' 2>/dev/null | grep -qvE '(^[0-9]+[[:space:]]+pgrep|--hub|(^|[[:space:]]|/)(claude)[[:space:]]+(daemon|bg-pty-host|bg-spare)|--bg-spare|--bg-pty-host)'; then
+#     printf '#[fg=green]🤖 active#[default]'
+#   else
+#     printf '🤖 idle'
+#   fi
+# }
+#
+# _toggle_agent_popup() {
+#   PATH="$PATH:/opt/homebrew/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.antigravity-ide/antigravity-ide/bin"
+#   session_name=${1:-$(tmux display -p '#{session_name}' 2>/dev/null)}
+#   pane_path=${2:-$(tmux display -p '#{pane_current_path}' 2>/dev/null)}
+#   case "$session_name" in
+#     agent-popup*)
+#       tmux detach-client
+#       return 0
+#       ;;
+#   esac
+#   case "$pane_path" in
+#     */workspace/work/*|"~/workspace/work/"*)
+#       agent_cmd="claude"
+#       ;;
+#     */workspace/personal/*|"~/workspace/personal/"*)
+#       agent_cmd="agy"
+#       ;;
+#     *)
+#       case "$session_name" in
+#         work*) agent_cmd="claude" ;;
+#         *) agent_cmd="agy" ;;
+#       esac
+#       ;;
+#   esac
+#   project_slug=$(basename "$pane_path" | tr -c 'A-Za-z0-9_-' '_')
+#   popup_session="agent-popup-${agent_cmd}-${project_slug}"
+#   tmux display-popup -E -w 80% -h 80% -d "$pane_path" "TMUX= tmux new-session -A -s '$popup_session' -c '$pane_path' '$agent_cmd' \\; set -t '$popup_session' status off"
 # }
 #
 # "$@"
