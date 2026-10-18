@@ -3,7 +3,7 @@ SHELL := /bin/bash
 REPO_DIR := $(shell pwd)
 ZSH_CUSTOM ?= $(HOME)/.oh-my-zsh/custom
 
-.PHONY: help all dotfiles brew alacritty zsh tmux nvim check clean
+.PHONY: help all dotfiles brew alacritty zsh tmux nvim check clean update skills
 
 help:
 	@echo "Available targets:"
@@ -13,6 +13,8 @@ help:
 	@echo "  make zsh        - Install Oh-My-Zsh, plugins, and Powerlevel10k idempotently"
 	@echo "  make tmux       - Install and configure gpakosz/.tmux framework"
 	@echo "  make nvim       - Clone / update kickstart.nvim configuration"
+	@echo "  make update     - Update Homebrew, Oh-My-Zsh plugins, tmux, nvim, and run check"
+	@echo "  make skills     - Install / update community agent skills via @mattpocock/skills"
 	@echo "  make check      - Run health checks, symlink audits, and secret scanning"
 	@echo "  make all        - Run complete workspace setup in sequence"
 
@@ -73,6 +75,45 @@ nvim:
 	else \
 		echo "Updating kickstart.nvim..."; \
 		git -C "$(HOME)/.config/nvim" pull --quiet || true; \
+	fi
+
+update:
+	@echo "==> Updating Homebrew packages and casks..."
+	@if command -v brew >/dev/null 2>&1; then \
+		brew update && brew upgrade && brew cleanup; \
+	fi
+	@echo "==> Updating Oh-My-Zsh and custom plugins..."
+	@if [ -d "$(HOME)/.oh-my-zsh" ]; then \
+		git -C "$(HOME)/.oh-my-zsh" pull --quiet || true; \
+	fi
+	@if [ -d "$(ZSH_CUSTOM)/plugins/zsh-syntax-highlighting" ]; then \
+		git -C "$(ZSH_CUSTOM)/plugins/zsh-syntax-highlighting" pull --quiet || true; \
+	fi
+	@if [ -d "$(ZSH_CUSTOM)/plugins/zsh-autosuggestions" ]; then \
+		git -C "$(ZSH_CUSTOM)/plugins/zsh-autosuggestions" pull --quiet || true; \
+	fi
+	@if [ -d "$(ZSH_CUSTOM)/themes/powerlevel10k" ]; then \
+		git -C "$(ZSH_CUSTOM)/themes/powerlevel10k" pull --quiet || true; \
+	fi
+	@echo "==> Updating gpakosz/.tmux..."
+	@if [ -d "$(HOME)/.tmux" ]; then \
+		git -C "$(HOME)/.tmux" pull --quiet || true; \
+	fi
+	@echo "==> Updating kickstart.nvim..."
+	@if [ -d "$(HOME)/.config/nvim" ]; then \
+		git -C "$(HOME)/.config/nvim" pull --quiet || true; \
+	fi
+	@echo "==> Verifying workstation health..."
+	@$(MAKE) check
+
+skills:
+	@echo "==> Installing / updating community agent skills via @mattpocock/skills..."
+	@mkdir -p "$(HOME)/.agents/skills"
+	@if command -v npx >/dev/null 2>&1; then \
+		npx --yes skills add mattpocock/skills -g -y; \
+	else \
+		echo "Error: npx is required to install/update agent skills." >&2; \
+		exit 1; \
 	fi
 
 check:

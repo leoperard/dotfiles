@@ -18,3 +18,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 Brewfile.lock.json
+
+# Agent skills (installed globally in ~/.agents/skills, never tracked in dotfiles)
+.agents/

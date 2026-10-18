@@ -110,6 +110,16 @@ else
 fi
 
 echo ""
+# 7. Check workstation maintenance & skills orchestration (#2)
+echo "7. Checking workstation maintenance targets..."
+if bash "$REPO_DIR/scripts/test_maintenance.sh" > /dev/null 2>&1; then
+  echo "  [OK] maintenance & skills tests pass"
+else
+  echo "  [FAIL] maintenance tests failed (run: bash scripts/test_maintenance.sh)"
+  ERRORS=$((ERRORS + 1))
+fi
+
+echo ""
 echo "==> Summary: $ERRORS error(s), $WARNINGS warning(s)"
 if [ "$ERRORS" -gt 0 ]; then
   exit 1

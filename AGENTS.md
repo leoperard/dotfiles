@@ -73,6 +73,16 @@ To apply symlinks:
 make dotfiles
 ```
 
+### Workstation Maintenance
+* To update all workstation tooling (Homebrew packages, Oh-My-Zsh & plugins, tmux, kickstart.nvim) and run health checks:
+```bash
+make update
+```
+* To install or update community agent skills into `~/.agents/skills` without affecting work skills:
+```bash
+make skills
+```
+
 ### Adding a New Configuration
 1. Place the config file in a descriptive folder (e.g., `tool/config.file`).
 2. Add the mapping to `scripts/link.sh` in the `MAPPINGS` array (`"tool/config.file:.config/tool/config.file"`).

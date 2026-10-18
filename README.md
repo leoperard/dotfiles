@@ -97,6 +97,12 @@ Set `GITHUB_TOKEN` in `~/.zshrc.local` to raise GitHub API rate limits (optional
 
 ## 🛠️ Verification & Maintenance
 
+Keep your entire workstation up-to-date and clean:
+```bash
+make update   # Updates Homebrew, Oh-My-Zsh plugins, tmux, kickstart.nvim, and runs make check
+make skills   # Installs / updates community agent skills in ~/.agents/skills via @mattpocock/skills
+```
+
 Run the built-in health check to audit symlinks, check for accidental secret leaks, and verify tool paths:
 
 ```bash
