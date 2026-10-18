@@ -83,25 +83,21 @@ update:
 		brew update && brew upgrade && brew cleanup; \
 	fi
 	@echo "==> Updating Oh-My-Zsh and custom plugins..."
-	@if [ -d "$(HOME)/.oh-my-zsh" ]; then \
-		git -C "$(HOME)/.oh-my-zsh" pull --quiet || true; \
-	fi
-	@if [ -d "$(ZSH_CUSTOM)/plugins/zsh-syntax-highlighting" ]; then \
-		git -C "$(ZSH_CUSTOM)/plugins/zsh-syntax-highlighting" pull --quiet || true; \
-	fi
-	@if [ -d "$(ZSH_CUSTOM)/plugins/zsh-autosuggestions" ]; then \
-		git -C "$(ZSH_CUSTOM)/plugins/zsh-autosuggestions" pull --quiet || true; \
-	fi
-	@if [ -d "$(ZSH_CUSTOM)/themes/powerlevel10k" ]; then \
-		git -C "$(ZSH_CUSTOM)/themes/powerlevel10k" pull --quiet || true; \
-	fi
+	@for dir in "$(HOME)/.oh-my-zsh" \
+		"$(ZSH_CUSTOM)/plugins/zsh-syntax-highlighting" \
+		"$(ZSH_CUSTOM)/plugins/zsh-autosuggestions" \
+		"$(ZSH_CUSTOM)/themes/powerlevel10k"; do \
+		if [ -d "$$dir" ]; then \
+			git -C "$$dir" pull --quiet || echo "  [WARN] Failed to pull $$dir"; \
+		fi; \
+	done
 	@echo "==> Updating gpakosz/.tmux..."
 	@if [ -d "$(HOME)/.tmux" ]; then \
-		git -C "$(HOME)/.tmux" pull --quiet || true; \
+		git -C "$(HOME)/.tmux" pull --quiet || echo "  [WARN] Failed to pull ~/.tmux"; \
 	fi
 	@echo "==> Updating kickstart.nvim..."
 	@if [ -d "$(HOME)/.config/nvim" ]; then \
-		git -C "$(HOME)/.config/nvim" pull --quiet || true; \
+		git -C "$(HOME)/.config/nvim" pull --quiet || echo "  [WARN] Failed to pull ~/.config/nvim"; \
 	fi
 	@echo "==> Verifying workstation health..."
 	@$(MAKE) check
@@ -110,7 +106,7 @@ skills:
 	@echo "==> Installing / updating community agent skills via @mattpocock/skills..."
 	@mkdir -p "$(HOME)/.agents/skills"
 	@if command -v npx >/dev/null 2>&1; then \
-		npx --yes skills add mattpocock/skills -g -y; \
+		npx --yes skills@latest add mattpocock/skills -g -y; \
 	else \
 		echo "Error: npx is required to install/update agent skills." >&2; \
 		exit 1; \
