@@ -26,6 +26,7 @@ declare -a MAPPINGS=(
   "git/.gitignore_global:.gitignore_global"
   "tmux/.tmux.conf.local:.tmux.conf.local"
   "vim/.vimrc:.vimrc"
+  "radar/radar.py:.local/bin/radar"
 )
 
 echo "==> Linking dotfiles (REPO: $REPO_DIR)"
