@@ -56,6 +56,18 @@ make check
 
 ---
 
+## 🎨 Unified Desert Theme
+
+The workstation is uniformly styled with Hans Fugal's classic Vim **Desert** color palette, providing an earth-toned, cohesive, and distraction-free visual experience across all terminal tooling:
+
+* **Alacritty**: Charcoal background (`#333333`), crisp white text (`#ffffff`), Khaki cursor (`#f0e68c`), OliveDrab selection (`#6b8e23`), and Peru search matches (`#cd853f`).
+* **Neovim / Vim**: Native `colorscheme desert` with transparent background (`guibg=NONE`) for zero visual boundary between editor and terminal.
+* **Tmux & Cockpit**: Charcoal status line (`#333333`), Khaki pane accents (`#f0e68c`), earth-tone battery gradient (PaleGreen → Khaki → IndianRed), and rounded Desert-themed floating agent popup (`prefix + a`).
+* **Zsh & Powerlevel10k**: Desert SkyBlue (`117`) and Tan (`144`) directory paths, PaleGreen (`120`) clean prompt & git indicators, and Khaki (`186`) modified status.
+* **CLI Tools (`bat` & `fzf`)**: `bat` configured with `BAT_THEME="ansi"` to inherit Desert syntax highlighting; `fzf` configured with charcoal backgrounds and khaki/salmon highlights.
+
+---
+
 ## 🐚 Shell Plugins & Modern Tooling
 
 The Zsh configuration in `zsh/.zshrc` is optimized for instantaneous launch speeds (~45ms) and includes curated plugins and modern CLI tools:

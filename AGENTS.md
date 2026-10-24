@@ -47,6 +47,14 @@ The workspace separates **Work** and **Personal** environments:
    * Never introduce blocking prompts (`read`, interactive confirmations) that execute in background subshells or agent sessions.
 4. **Idempotence**:
    * Any new setup command or target in `Makefile` must be safely re-runnable without failing if the directory or link already exists.
+5. **Cohesive Desert Theme Across All UI Tools**:
+   * The terminal environment is strictly unified under Hans Fugal's classic Vim **Desert** color scheme.
+   * Any change or new tool configuration that impacts terminal UI (Alacritty, Neovim/Vim, Tmux status/popups/battery, Powerlevel10k, fzf, bat, etc.) **must respect and adhere to the Desert palette**:
+     * **Background**: `#333333` (classic Vim `grey20`)
+     * **Foreground**: `#ffffff` (White)
+     * **Key Accents**: Khaki (`#f0e68c`), PaleGreen (`#98fb98`), SkyBlue (`#87ceeb`), IndianRed (`#cd5c5c`), NavajoWhite (`#ffde9b`), Desert Tan (`#c2bfa5`), Light Salmon (`#ffa0a0`)
+     * **Visual Selection**: OliveDrab (`#6b8e23`) with Khaki text (`#f0e68c`)
+   * Never introduce clashing neon, high-saturation primaries, or pitch-black (`#000000`) surfaces into UI elements, status lines, or popups. Neovim must always blend seamlessly into the terminal background (`guibg=NONE`).
 
 ---
 
