@@ -227,7 +227,7 @@ tmux_conf_theme_right_separator_sub='\uE0B3'  #   PowerlineSymbols.otf font, see
 #     - #{username}
 #     - #{username_ssh}
 tmux_conf_theme_status_left=" #S "
-tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized} #{agent_status} , #{weather} #{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} "
+tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized} #{agent_status} , #{net_speed} , #{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} "
 
 # status left style
 tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_6,$tmux_conf_theme_colour_7,$tmux_conf_theme_colour_8"
@@ -392,8 +392,8 @@ set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
 set -g @plugin 'tmux-plugins/tmux-yank'
 set -g @plugin 'tmux-plugins/tmux-pain-control'
-set -g @plugin 'tmux-plugins/tmux-copycat'
 set -g @plugin 'tmux-plugins/tmux-open'
+set -g @plugin 'sainnhe/tmux-fzf'
 set -g @plugin 'tmux-plugins/tmux-battery'
 set -g @batt_color_charge_primary_tier8 '#98fb98'
 set -g @batt_color_charge_primary_tier7 '#98fb98'
@@ -408,7 +408,6 @@ set -g @batt_color_status_primary_charged '#98fb98'
 set -g @batt_color_status_primary_discharging '#c2bfa5'
 set -g @plugin 'tmux-plugins/tmux-cpu'
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
-# set -g @plugin 'xamut/tmux-weather'
 set -g @continuum-restore 'on'
 
 
@@ -427,11 +426,6 @@ set -g @continuum-restore 'on'
 #
 # # /!\ do not "uncomment" the functions: the leading "# " characters are needed
 #
-# weather() {
-#   curl -m 1 wttr.in?format=3 2>/dev/null
-#   sleep 900 # sleep for 15 minutes, throttle network requests whatever the value of status-interval
-# }
-#
 # online() {
 #   ping -c 1 1.1.1.1 >/dev/null 2>&1 && printf '✔' || printf '✘'
 # }
@@ -442,6 +436,49 @@ set -g @continuum-restore 'on'
 #   else
 #     printf '🤖 idle'
 #   fi
+# }
+#
+# net_speed() {
+#   cache="/tmp/tmux-net-speed-${USER:-default}"
+#   now=$(date +%s)
+#   rx=""
+#   tx=""
+#   if [ "$(uname -s)" = "Darwin" ]; then
+#     iface=$(route -n get default 2>/dev/null | awk '/interface:/{print $2}')
+#     [ -z "$iface" ] && iface="en0"
+#     stats=$(netstat -ib -I "$iface" 2>/dev/null | awk 'NR>1 && $3 ~ /<Link/ {print $7, $10; exit}')
+#     rx=$(printf "%s" "$stats" | cut -d' ' -f1)
+#     tx=$(printf "%s" "$stats" | cut -d' ' -f2)
+#   elif [ -r /proc/net/dev ]; then
+#     stats=$(awk 'NR>2 && $1 !~ /lo:/ {rx+=$2; tx+=$10} END {print rx, tx}' /proc/net/dev 2>/dev/null)
+#     rx=$(printf "%s" "$stats" | cut -d' ' -f1)
+#     tx=$(printf "%s" "$stats" | cut -d' ' -f2)
+#   fi
+#   [ -z "$rx" ] || [ -z "$tx" ] && return 0
+#   if [ -f "$cache" ]; then
+#     read -r prev_time prev_rx prev_tx < "$cache" 2>/dev/null
+#   else
+#     prev_time=$now
+#     prev_rx=$rx
+#     prev_tx=$tx
+#   fi
+#   printf "%s %s %s\n" "$now" "$rx" "$tx" > "$cache"
+#   awk -v now="$now" -v prev_t="$prev_time" \
+#       -v rx="$rx" -v prev_rx="$prev_rx" \
+#       -v tx="$tx" -v prev_tx="$prev_tx" '
+# function human(b) {
+#   if (b >= 1073741824) return sprintf("%.1fG/s", b / 1073741824);
+#   if (b >= 1048576) return sprintf("%.1fM/s", b / 1048576);
+#   if (b >= 1024) return sprintf("%.0fK/s", b / 1024);
+#   return sprintf("%dB/s", b);
+# }
+# BEGIN {
+#   dt = now - prev_t;
+#   if (dt <= 0) dt = 1;
+#   rx_rate = (rx >= prev_rx) ? (rx - prev_rx) / dt : 0;
+#   tx_rate = (tx >= prev_tx) ? (tx - prev_tx) / dt : 0;
+#   printf "#[fg=#87ceeb]↓ %s#[default] #[fg=#f0e68c]↑ %s#[default]", human(rx_rate), human(tx_rate);
+# }'
 # }
 #
 # _toggle_agent_popup() {
