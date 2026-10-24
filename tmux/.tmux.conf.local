@@ -285,21 +285,21 @@ tmux_conf_battery_bar_length="auto"
 #   - heat
 #   - "colour_full_fg,colour_empty_fg,colour_bg"
 tmux_conf_battery_bar_palette="gradient"
-tmux_conf_battery_bar_palette="#d70000,#e4e4e4,#000000"   # red, white, black
+tmux_conf_battery_bar_palette="#98fb98,#4d4d4d,none"   # palegreen, muted gray, none
 
 # battery hbar palette, possible values are:
 #   - gradient (default)
 #   - heat
 #   - "colour_low,colour_half,colour_full"
 tmux_conf_battery_hbar_palette="gradient"
-tmux_conf_battery_hbar_palette="#d70000,#ff5f00,#5fff00"  # red, orange, green
+tmux_conf_battery_hbar_palette="#cd5c5c,#f0e68c,#98fb98"  # indianred, khaki, palegreen
 
 # battery vbar palette, possible values are:
 #   - gradient (default)
 #   - heat
 #   - "colour_low,colour_half,colour_full"
 tmux_conf_battery_vbar_palette="gradient"
-tmux_conf_battery_vbar_palette="#d70000,#ff5f00,#5fff00"  # red, orange, green
+tmux_conf_battery_vbar_palette="#cd5c5c,#f0e68c,#98fb98"  # indianred, khaki, palegreen
 
 # symbols used to indicate whether battery is charging or discharging
 tmux_conf_battery_status_charging="↑"       # U+2191
@@ -395,6 +395,17 @@ set -g @plugin 'tmux-plugins/tmux-pain-control'
 set -g @plugin 'tmux-plugins/tmux-copycat'
 set -g @plugin 'tmux-plugins/tmux-open'
 set -g @plugin 'tmux-plugins/tmux-battery'
+set -g @batt_color_charge_primary_tier8 '#98fb98'
+set -g @batt_color_charge_primary_tier7 '#98fb98'
+set -g @batt_color_charge_primary_tier6 '#f0e68c'
+set -g @batt_color_charge_primary_tier5 '#f0e68c'
+set -g @batt_color_charge_primary_tier4 '#ffde9b'
+set -g @batt_color_charge_primary_tier3 '#ffde9b'
+set -g @batt_color_charge_primary_tier2 '#cd5c5c'
+set -g @batt_color_charge_primary_tier1 '#cd5c5c'
+set -g @batt_color_status_primary_charging '#87ceeb'
+set -g @batt_color_status_primary_charged '#98fb98'
+set -g @batt_color_status_primary_discharging '#c2bfa5'
 set -g @plugin 'tmux-plugins/tmux-cpu'
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
 # set -g @plugin 'xamut/tmux-weather'
