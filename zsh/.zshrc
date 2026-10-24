@@ -161,8 +161,13 @@ if (( $+commands[fnm] )); then
 fi
 
 if (( $+commands[bat] )); then
+  export BAT_THEME="ansi"
   export MANPAGER="sh -c 'col -bx | bat -l man -p'"
   alias ccat="bat"
+fi
+
+if (( $+commands[fzf] )); then
+  export FZF_DEFAULT_OPTS="--color=bg:#333333,bg+:#4d4d4d,fg:#ffffff,fg+:#ffffff,hl:#cd5c5c,hl+:#ffa0a0,info:#f0e68c,prompt:#f0e68c,pointer:#f0e68c,marker:#98fb98,spinner:#87ceeb,header:#87ceeb,border:#c2bfa5"
 fi
 
 if (( $+commands[thefuck] )); then
