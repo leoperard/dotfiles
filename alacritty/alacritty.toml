@@ -10,26 +10,43 @@ size = 14
 [scrolling]
 history = 100000
 
+# Desert colorscheme (Hans Fugal's classic Vim "desert" theme)
 [colors.primary]
-foreground = "#eae1d8"
-background = "#282522"
+background = "#333333"
+foreground = "#ffffff"
+
+[colors.cursor]
+text = "#333333"
+cursor = "#f0e68c"
+
+[colors.selection]
+text = "#f0e68c"
+background = "#6b8e23"
+
+[colors.search.matches]
+foreground = "#333333"
+background = "#cd853f"
+
+[colors.search.focused_match]
+foreground = "#333333"
+background = "#f0e68c"
 
 [colors.normal]
-black = "#33302c"
-red = "#b48384"
-green = "#7e987c"
-yellow = "#d99e67"
-blue = "#8290af"
-magenta = "#ab82ad"
-cyan = "#809594"
-white = "#bca791"
+black = "#4d4d4d"
+red = "#cd5c5c"
+green = "#98fb98"
+yellow = "#f0e68c"
+blue = "#87ceeb"
+magenta = "#ffde9b"
+cyan = "#ffa0a0"
+white = "#c2bfa5"
 
 [colors.bright]
-black = "#837464"
-red = "#c77b6a"
-green = "#8fb497"
-yellow = "#e4c179"
-blue = "#a4a8ca"
-magenta = "#c79dbf"
-cyan = "#91b1b5"
-white = "#eae1d8"
+black = "#708090"
+red = "#ff5555"
+green = "#55ff55"
+yellow = "#ffd700"
+blue = "#87ceff"
+magenta = "#ff55ff"
+cyan = "#ffd700"
+white = "#ffffff"
