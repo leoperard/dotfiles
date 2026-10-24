@@ -43,26 +43,26 @@ tmux_conf_new_session_prompt=false
 # RGB 24-bit colour support (tmux >= 2.2), possible values are:
 #  - true
 #  - false (default)
-tmux_conf_24b_colour=false
+tmux_conf_24b_colour=true
 
-# default theme
-tmux_conf_theme_colour_1="#080808"    # dark gray
-tmux_conf_theme_colour_2="#303030"    # gray
-tmux_conf_theme_colour_3="#8a8a8a"    # light gray
-tmux_conf_theme_colour_4="#00afff"    # light blue
-tmux_conf_theme_colour_5="#ffff00"    # yellow
-tmux_conf_theme_colour_6="#080808"    # dark gray
-tmux_conf_theme_colour_7="#e4e4e4"    # white
-tmux_conf_theme_colour_8="#080808"    # dark gray
-tmux_conf_theme_colour_9="#ffff00"    # yellow
-tmux_conf_theme_colour_10="#ff00af"   # pink
-tmux_conf_theme_colour_11="#5fff00"   # green
-tmux_conf_theme_colour_12="#8a8a8a"   # light gray
-tmux_conf_theme_colour_13="#e4e4e4"   # white
-tmux_conf_theme_colour_14="#080808"   # dark gray
-tmux_conf_theme_colour_15="#080808"   # dark gray
-tmux_conf_theme_colour_16="#d70000"   # red
-tmux_conf_theme_colour_17="#e4e4e4"   # white
+# default theme (Desert theme palette)
+tmux_conf_theme_colour_1="#333333"    # desert background charcoal
+tmux_conf_theme_colour_2="#4d4d4d"    # desert muted gray
+tmux_conf_theme_colour_3="#c2bfa5"    # desert tan
+tmux_conf_theme_colour_4="#87ceeb"    # desert sky blue
+tmux_conf_theme_colour_5="#f0e68c"    # desert khaki
+tmux_conf_theme_colour_6="#333333"    # desert charcoal
+tmux_conf_theme_colour_7="#ffffff"    # desert white
+tmux_conf_theme_colour_8="#333333"    # desert charcoal
+tmux_conf_theme_colour_9="#f0e68c"    # desert khaki
+tmux_conf_theme_colour_10="#ffde9b"   # desert navajowhite
+tmux_conf_theme_colour_11="#98fb98"   # desert palegreen
+tmux_conf_theme_colour_12="#c2bfa5"   # desert tan
+tmux_conf_theme_colour_13="#ffffff"   # white
+tmux_conf_theme_colour_14="#333333"   # dark gray
+tmux_conf_theme_colour_15="#333333"   # dark gray
+tmux_conf_theme_colour_16="#cd5c5c"   # desert indianred
+tmux_conf_theme_colour_17="#ffffff"   # white
 
 # default theme (ansi)
 #tmux_conf_theme_colour_1="colour0"
@@ -459,7 +459,7 @@ set -g @continuum-restore 'on'
 #   esac
 #   project_slug=$(basename "$pane_path" | tr -c 'A-Za-z0-9_-' '_')
 #   popup_session="agent-popup-${agent_cmd}-${project_slug}"
-#   tmux display-popup -E -w 80% -h 80% -d "$pane_path" "TMUX= tmux new-session -A -s '$popup_session' -c '$pane_path' '$agent_cmd' \\; set -t '$popup_session' status off"
+#   tmux display-popup -b rounded -s "bg=#333333,fg=#ffffff" -S "fg=#f0e68c,bg=#333333" -T " 🤖 Agent Cockpit ($agent_cmd) " -E -w 80% -h 80% -d "$pane_path" "TMUX= tmux new-session -A -s '$popup_session' -c '$pane_path' '$agent_cmd' \\; set -t '$popup_session' status off"
 # }
 #
 # "$@"
