@@ -108,7 +108,7 @@
       "hex": "#f5deb3",
       "rgb": [245, 222, 179],
       "hsl": [39, 77, 83],
-      "role": "Search match foreground text"
+      "role": "Legacy Vim search match text; modern terminal (Alacritty) uses #333333 for contrast"
     },
     "slateGrey": {
       "hex": "#708090",
@@ -361,7 +361,7 @@
       },
       "search": {
         "matchBackground": "#cd853f",
-        "matchForeground": "#f5deb3",
+        "matchForeground": "#333333",
         "focusedMatchBackground": "#f0e68c",
         "focusedMatchForeground": "#333333"
       },
@@ -372,6 +372,50 @@
         "inactiveForeground": "#7f7f7f"
       },
       "splitDivider": "#7f7f7f"
+    },
+    "alacritty": {
+      "primary": {
+        "background": "#333333",
+        "foreground": "#ffffff"
+      },
+      "cursor": {
+        "text": "#333333",
+        "cursor": "#f0e68c"
+      },
+      "selection": {
+        "text": "#f0e68c",
+        "background": "#6b8e23"
+      },
+      "search": {
+        "matches": {
+          "foreground": "#333333",
+          "background": "#cd853f"
+        },
+        "focused_match": {
+          "foreground": "#333333",
+          "background": "#f0e68c"
+        }
+      },
+      "normal": {
+        "black": "#4d4d4d",
+        "red": "#cd5c5c",
+        "green": "#98fb98",
+        "yellow": "#f0e68c",
+        "blue": "#87ceeb",
+        "magenta": "#ffde9b",
+        "cyan": "#ffa0a0",
+        "white": "#c2bfa5"
+      },
+      "bright": {
+        "black": "#708090",
+        "red": "#ff5555",
+        "green": "#55ff55",
+        "yellow": "#ffd700",
+        "blue": "#87ceff",
+        "magenta": "#ff55ff",
+        "cyan": "#ffd700",
+        "white": "#ffffff"
+      }
     },
     "css_custom_properties": {
       "--desert-bg-canvas": "#333333",
