@@ -1,0 +1,222 @@
+# Desert Theme - Hans Fugal Classic
+# Source: https://github.com/fugalh/desert.vim/blob/master/colors/desert.vim
+# Standalone, cross-application color specification
+
+name: Desert
+displayName: "Desert (Hans Fugal Classic)"
+author: "Hans Fugal <hans@fugal.net>"
+type: dark
+description: "Standalone, multi-application color theme extracted from Hans Fugal's classic Vim Desert color scheme. Warm earth tones, soft charcoal background, khaki keywords, sky blue comments, and pale green identifiers."
+
+palette:
+  grey20:
+    hex: "#333333"
+    rgb: [51, 51, 51]
+    role: "Primary canvas background (charcoal)"
+  grey30:
+    hex: "#4d4d4d"
+    rgb: [77, 77, 77]
+    role: "Secondary surface background, folds, gutters"
+  grey40:
+    hex: "#666666"
+    rgb: [102, 102, 102]
+    role: "Elevated surfaces, menus, active line highlight"
+  grey50:
+    hex: "#7f7f7f"
+    rgb: [127, 127, 127]
+    role: "Borders, split separators, subtle dividers"
+  white:
+    hex: "#ffffff"
+    rgb: [255, 255, 255]
+    role: "Primary body text"
+  black:
+    hex: "#000000"
+    rgb: [0, 0, 0]
+    role: "Inverted text for light accent surfaces"
+  desertTan:
+    hex: "#c2bfa5"
+    rgb: [194, 191, 165]
+    role: "Statusline background, window split headers"
+  khaki:
+    hex: "#f0e68c"
+    rgb: [240, 230, 140]
+    role: "Keywords, statements, cursor highlight"
+  darkKhaki:
+    hex: "#bdb76b"
+    rgb: [189, 183, 107]
+    role: "Types, classes, primitives, interfaces"
+  paleGreen:
+    hex: "#98fb98"
+    rgb: [152, 251, 152]
+    role: "Identifiers, variables, function names"
+  skyBlue:
+    hex: "#87ceeb"
+    rgb: [135, 206, 235]
+    role: "Comments, docstrings, info text"
+  indianRed:
+    hex: "#cd5c5c"
+    rgb: [205, 92, 92]
+    role: "Preprocessor, imports, titles, warnings"
+  lightSalmon:
+    hex: "#ffa0a0"
+    rgb: [255, 160, 160]
+    role: "Constants, numeric literals, strings"
+  navajoWhite:
+    hex: "#ffde9b"
+    rgb: [255, 222, 155]
+    role: "Special characters, escape sequences, delimiters"
+  oliveDrab:
+    hex: "#6b8e23"
+    rgb: [107, 142, 35]
+    role: "Visual selection background"
+  peru:
+    hex: "#cd853f"
+    rgb: [205, 133, 63]
+    role: "Search result match background"
+  wheat:
+    hex: "#f5deb3"
+    rgb: [245, 222, 179]
+    role: "Search match foreground text"
+  slateGrey:
+    hex: "#708090"
+    rgb: [112, 128, 144]
+    role: "Cursor text, incremental search text"
+
+styles:
+  backgrounds:
+    canvas:
+      color: "#333333"
+      description: "Primary application background (grey20)"
+    surface:
+      color: "#4d4d4d"
+      description: "Secondary background for panels, sidebars, folds (grey30)"
+    elevated:
+      color: "#666666"
+      description: "Popups, dropdown menus, autocomplete (grey40)"
+    selection:
+      color: "#6b8e23"
+      description: "Visual selection background (olivedrab)"
+    searchMatch:
+      color: "#cd853f"
+      description: "Search match background (peru)"
+    searchFocused:
+      color: "#f0e68c"
+      description: "Active search focus / cursor background (khaki)"
+    statusBar:
+      active: "#c2bfa5"
+      inactive: "#4d4d4d"
+      description: "Desert tan for active statusbar, charcoal for inactive"
+    border:
+      color: "#7f7f7f"
+      divider: "#c2bfa5"
+      description: "Window dividers and panel split lines"
+
+  text:
+    primary:
+      color: "#ffffff"
+      fontStyle: normal
+      description: "Default white text"
+    muted:
+      color: "#87ceeb"
+      fontStyle: italic
+      description: "SkyBlue comments and docstrings"
+    subtle:
+      color: "#7f7f7f"
+      fontStyle: normal
+      description: "Inactive items, line numbers, subtle labels"
+    accent:
+      color: "#f0e68c"
+      fontStyle: normal
+      description: "Khaki text for active selections, prompts, pointers"
+    inverse:
+      color: "#000000"
+      fontStyle: normal
+      description: "Black text for light surfaces (status bar, menus)"
+    heading:
+      color: "#cd5c5c"
+      fontStyle: bold
+      description: "IndianRed section headings and titles"
+    link:
+      color: "#75a0ff"
+      fontStyle: underline
+      description: "Hyperlinks and references"
+    warning:
+      color: "#cd5c5c"
+      fontStyle: bold
+      description: "IndianRed warning indicators"
+    error:
+      color: "#ff0000"
+      fontStyle: bold
+      description: "Red fatal error messages"
+    success:
+      color: "#98fb98"
+      fontStyle: normal
+      description: "PaleGreen confirmations and success badges"
+
+  keywords_and_syntax:
+    keyword:
+      color: "#f0e68c"
+      fontStyle: bold
+      vimGroup: Statement
+      description: "Khaki: keywords, control flow (if, for, return, def, class)"
+    type:
+      color: "#bdb76b"
+      fontStyle: bold
+      vimGroup: Type
+      description: "DarkKhaki: types, primitives, classes, interfaces"
+    identifier:
+      color: "#98fb98"
+      fontStyle: normal
+      vimGroup: Identifier
+      description: "PaleGreen: variables, function names, object keys"
+    constant:
+      color: "#ffa0a0"
+      fontStyle: normal
+      vimGroup: Constant
+      description: "LightSalmon (#ffa0a0): strings, numbers, booleans"
+    preprocessor:
+      color: "#cd5c5c"
+      fontStyle: normal
+      vimGroup: PreProc
+      description: "IndianRed: import statements, macros, annotations"
+    special:
+      color: "#ffde9b"
+      fontStyle: normal
+      vimGroup: Special
+      description: "NavajoWhite: regex, escape sequences, delimiters"
+    comment:
+      color: "#87ceeb"
+      fontStyle: italic
+      vimGroup: Comment
+      description: "SkyBlue: line and block comments, docstrings"
+    specialKey:
+      color: "#9acd32"
+      fontStyle: normal
+      vimGroup: SpecialKey
+      description: "YellowGreen: whitespace markers, tabs"
+    todo:
+      color: "#ff0000"
+      backgroundColor: "#eeee00"
+      fontStyle: bold
+      vimGroup: Todo
+      description: "Bright red on yellow TODO markers"
+
+terminal_ansi_16:
+  normal:
+    black: "#4d4d4d"
+    red: "#cd5c5c"
+    green: "#98fb98"
+    yellow: "#f0e68c"
+    blue: "#87ceeb"
+    magenta: "#ffde9b"
+    cyan: "#ffa0a0"
+    white: "#c2bfa5"
+  bright:
+    black: "#708090"
+    red: "#ff5555"
+    green: "#55ff55"
+    yellow: "#ffd700"
+    blue: "#87ceff"
+    magenta: "#ff55ff"
+    cyan: "#ffd700"
+    white: "#ffffff"

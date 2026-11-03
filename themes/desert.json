@@ -1,0 +1,398 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "Desert",
+  "displayName": "Desert (Hans Fugal Classic)",
+  "author": "Hans Fugal <hans@fugal.net>",
+  "originalSource": "https://github.com/fugalh/desert.vim/blob/master/colors/desert.vim",
+  "type": "dark",
+  "description": "Standalone, multi-application color theme extracted from Hans Fugal's classic Vim Desert color scheme. Characterized by warm earth tones, soft charcoal backgrounds, khaki keywords, sky blue comments, and pale green identifiers.",
+  
+  "palette": {
+    "grey20": {
+      "hex": "#333333",
+      "rgb": [51, 51, 51],
+      "hsl": [0, 0, 20],
+      "role": "Primary editor canvas background (dark charcoal)"
+    },
+    "grey30": {
+      "hex": "#4d4d4d",
+      "rgb": [77, 77, 77],
+      "hsl": [0, 0, 30],
+      "role": "Secondary surface background, folds, gutters, inactive panels"
+    },
+    "grey40": {
+      "hex": "#666666",
+      "rgb": [102, 102, 102],
+      "hsl": [0, 0, 40],
+      "role": "Elevated surfaces, menus, cursorline, concealed items"
+    },
+    "grey50": {
+      "hex": "#7f7f7f",
+      "rgb": [127, 127, 127],
+      "hsl": [0, 0, 50],
+      "role": "Borders, split separators, inactive statusline text"
+    },
+    "white": {
+      "hex": "#ffffff",
+      "rgb": [255, 255, 255],
+      "hsl": [0, 0, 100],
+      "role": "Primary foreground body text"
+    },
+    "black": {
+      "hex": "#000000",
+      "rgb": [0, 0, 0],
+      "hsl": [0, 0, 0],
+      "role": "Inverted contrast text on light accents (e.g. status bar)"
+    },
+    "desertTan": {
+      "hex": "#c2bfa5",
+      "rgb": [194, 191, 165],
+      "hsl": [54, 21, 70],
+      "role": "Statusline background, split borders, tabline fill"
+    },
+    "khaki": {
+      "hex": "#f0e68c",
+      "rgb": [240, 230, 140],
+      "hsl": [54, 77, 75],
+      "role": "Keywords/Statements, cursor background, active highlights, search focus"
+    },
+    "darkKhaki": {
+      "hex": "#bdb76b",
+      "rgb": [189, 183, 107],
+      "hsl": [56, 38, 58],
+      "role": "Types, classes, primitives, structured definitions"
+    },
+    "paleGreen": {
+      "hex": "#98fb98",
+      "rgb": [152, 251, 152],
+      "hsl": [120, 93, 79],
+      "role": "Identifiers, variable names, function declarations"
+    },
+    "skyBlue": {
+      "hex": "#87ceeb",
+      "rgb": [135, 206, 235],
+      "hsl": [197, 71, 73],
+      "role": "Comments, documentation, informational text"
+    },
+    "indianRed": {
+      "hex": "#cd5c5c",
+      "rgb": [205, 92, 92],
+      "hsl": [0, 53, 58],
+      "role": "Preprocessor directives, imports, headings, warnings, errors"
+    },
+    "lightSalmon": {
+      "hex": "#ffa0a0",
+      "rgb": [255, 160, 160],
+      "hsl": [0, 100, 81],
+      "role": "Constants, numeric literals, strings, boolean values"
+    },
+    "navajoWhite": {
+      "hex": "#ffde9b",
+      "rgb": [255, 222, 155],
+      "hsl": [40, 100, 80],
+      "role": "Special characters, escape sequences, delimiters, regex"
+    },
+    "oliveDrab": {
+      "hex": "#6b8e23",
+      "rgb": [107, 142, 35],
+      "hsl": [80, 60, 35],
+      "role": "Visual selection highlight background"
+    },
+    "peru": {
+      "hex": "#cd853f",
+      "rgb": [205, 133, 63],
+      "hsl": [30, 59, 53],
+      "role": "Search result match background"
+    },
+    "wheat": {
+      "hex": "#f5deb3",
+      "rgb": [245, 222, 179],
+      "hsl": [39, 77, 83],
+      "role": "Search match foreground text"
+    },
+    "slateGrey": {
+      "hex": "#708090",
+      "rgb": [112, 128, 144],
+      "hsl": [210, 13, 50],
+      "role": "Cursor text, incremental search text"
+    },
+    "goldenrod": {
+      "hex": "#daa520",
+      "rgb": [218, 165, 32],
+      "hsl": [43, 74, 49],
+      "role": "Mode indicators, commands, badges"
+    },
+    "gold": {
+      "hex": "#ffd700",
+      "rgb": [255, 215, 0],
+      "hsl": [51, 100, 50],
+      "role": "Line numbers, fold indicators, active line badges"
+    },
+    "tan": {
+      "hex": "#d2b48c",
+      "rgb": [210, 180, 140],
+      "hsl": [34, 44, 69],
+      "role": "Fold columns, subtle accents"
+    },
+    "seaGreen": {
+      "hex": "#2e8b57",
+      "rgb": [46, 139, 87],
+      "hsl": [146, 50, 36],
+      "role": "Success messages, pagination prompts"
+    },
+    "springGreen": {
+      "hex": "#00ff7f",
+      "rgb": [0, 255, 127],
+      "hsl": [150, 100, 50],
+      "role": "Interactive query prompts, questions"
+    },
+    "yellowGreen": {
+      "hex": "#9acd32",
+      "rgb": [154, 205, 50],
+      "hsl": [80, 61, 50],
+      "role": "Special keys, non-printable characters"
+    },
+    "lightBlue": {
+      "hex": "#add8e6",
+      "rgb": [173, 216, 230],
+      "hsl": [195, 53, 79],
+      "role": "Non-text indicators, subtle symbols"
+    },
+    "cornflowerBlue": {
+      "hex": "#75a0ff",
+      "rgb": [117, 160, 255],
+      "hsl": [221, 100, 73],
+      "role": "Hyperlinks, underlined references"
+    }
+  },
+
+  "styles": {
+    "backgrounds": {
+      "canvas": {
+        "color": "#333333",
+        "description": "Primary application/window background (classic Vim grey20). Muted charcoal that prevents eye strain compared to harsh pitch black."
+      },
+      "surface": {
+        "color": "#4d4d4d",
+        "description": "Secondary level surface for sidebars, fold bars, gutter panels, and inactive tabs (grey30)."
+      },
+      "elevated": {
+        "color": "#666666",
+        "description": "Floating elements such as dropdowns, context menus, autocomplete menus, and active line bands (grey40)."
+      },
+      "selection": {
+        "color": "#6b8e23",
+        "description": "Visual text selection background (olivedrab). Organic muted olive earth tone providing strong contrast without blinding glare."
+      },
+      "searchMatch": {
+        "color": "#cd853f",
+        "description": "General search highlight background (peru). Warm earthy copper tone."
+      },
+      "searchFocused": {
+        "color": "#f0e68c",
+        "description": "Active/current search match and cursor position background (khaki)."
+      },
+      "statusBar": {
+        "active": "#c2bfa5",
+        "inactive": "#4d4d4d",
+        "description": "Desert tan (#c2bfa5) for active status line; dark grey (#4d4d4d) for inactive windows."
+      },
+      "border": {
+        "color": "#7f7f7f",
+        "divider": "#c2bfa5",
+        "description": "Muted grey (#7f7f7f) or desert tan (#c2bfa5) for window splits and component borders."
+      }
+    },
+
+    "text": {
+      "primary": {
+        "color": "#ffffff",
+        "fontStyle": "normal",
+        "description": "Crisp white body text (guifg=White) with maximum legibility against #333333 canvas."
+      },
+      "muted": {
+        "color": "#87ceeb",
+        "fontStyle": "italic",
+        "description": "SkyBlue (#87ceeb) for comments, documentation, and explanatory text. Soft, easily readable yet clearly secondary."
+      },
+      "subtle": {
+        "color": "#7f7f7f",
+        "fontStyle": "normal",
+        "description": "Mid-grey (#7f7f7f) for line numbers, inactive window titles, and decorative borders."
+      },
+      "accent": {
+        "color": "#f0e68c",
+        "fontStyle": "normal",
+        "description": "Warm khaki (#f0e68c) for selected text, active prompts, and focused items."
+      },
+      "inverse": {
+        "color": "#000000",
+        "fontStyle": "normal",
+        "description": "Black text (#000000) placed over light surfaces such as the active desert-tan status bar or khaki menus."
+      },
+      "heading": {
+        "color": "#cd5c5c",
+        "fontStyle": "bold",
+        "description": "IndianRed (#cd5c5c) for headers, titles, section banners, and command output summaries."
+      },
+      "link": {
+        "color": "#75a0ff",
+        "fontStyle": "underline",
+        "description": "Underlined light blue (#75a0ff) for hyperlinks, file paths, and external references."
+      },
+      "warning": {
+        "color": "#cd5c5c",
+        "fontStyle": "bold",
+        "description": "IndianRed (#cd5c5c) for warnings and caution labels."
+      },
+      "error": {
+        "color": "#ff0000",
+        "fontStyle": "bold",
+        "description": "Bright red (#ff0000) for fatal errors, parse failures, and diagnostics."
+      },
+      "success": {
+        "color": "#98fb98",
+        "fontStyle": "normal",
+        "description": "Pale green (#98fb98) for success confirmations, passing tests, and prompt markers."
+      }
+    },
+
+    "keywords_and_syntax": {
+      "keyword": {
+        "color": "#f0e68c",
+        "fontStyle": "bold",
+        "vimGroup": "Statement",
+        "description": "Khaki. Language keywords, control flow statements (if, else, return, for, while, switch, def, class)."
+      },
+      "type": {
+        "color": "#bdb76b",
+        "fontStyle": "bold",
+        "vimGroup": "Type",
+        "description": "DarkKhaki. Type definitions, built-in types, classes, structs, traits, interfaces (int, string, bool, void, Promise)."
+      },
+      "identifier": {
+        "color": "#98fb98",
+        "fontStyle": "normal",
+        "vimGroup": "Identifier",
+        "description": "PaleGreen. Variable names, object keys, declared function and method names."
+      },
+      "constant": {
+        "color": "#ffa0a0",
+        "fontStyle": "normal",
+        "vimGroup": "Constant",
+        "description": "LightSalmon (#ffa0a0). String literals, numbers, booleans, constants, and enum members."
+      },
+      "preprocessor": {
+        "color": "#cd5c5c",
+        "fontStyle": "normal",
+        "vimGroup": "PreProc",
+        "description": "IndianRed. Import statements, preprocessor directives, macros, decorators, annotations (#include, import, export)."
+      },
+      "special": {
+        "color": "#ffde9b",
+        "fontStyle": "normal",
+        "vimGroup": "Special",
+        "description": "NavajoWhite. Escape sequences (\\n, \\t), special operators, regex literals, punctuation delimiters."
+      },
+      "comment": {
+        "color": "#87ceeb",
+        "fontStyle": "italic",
+        "vimGroup": "Comment",
+        "description": "SkyBlue. Single-line comments, multi-line blocks, docstrings, annotations."
+      },
+      "specialKey": {
+        "color": "#9acd32",
+        "fontStyle": "normal",
+        "vimGroup": "SpecialKey",
+        "description": "YellowGreen. Hidden whitespace, tab characters, non-printable characters."
+      },
+      "todo": {
+        "color": "#ff0000",
+        "backgroundColor": "#eeee00",
+        "fontStyle": "bold",
+        "vimGroup": "Todo",
+        "description": "Bright red on yellow. High-visibility TODO, FIXME, BUG markers."
+      }
+    }
+  },
+
+  "application_mappings": {
+    "terminal_ansi_16": {
+      "normal": {
+        "black": "#4d4d4d",
+        "red": "#cd5c5c",
+        "green": "#98fb98",
+        "yellow": "#f0e68c",
+        "blue": "#87ceeb",
+        "magenta": "#ffde9b",
+        "cyan": "#ffa0a0",
+        "white": "#c2bfa5"
+      },
+      "bright": {
+        "black": "#708090",
+        "red": "#ff5555",
+        "green": "#55ff55",
+        "yellow": "#ffd700",
+        "blue": "#87ceff",
+        "magenta": "#ff55ff",
+        "cyan": "#ffd700",
+        "white": "#ffffff"
+      }
+    },
+    "editor_ui": {
+      "background": "#333333",
+      "foreground": "#ffffff",
+      "cursor": {
+        "cursor": "#f0e68c",
+        "text": "#333333"
+      },
+      "selection": {
+        "background": "#6b8e23",
+        "text": "#f0e68c"
+      },
+      "lineHighlight": "#404040",
+      "lineNumbers": {
+        "active": "#ffd700",
+        "inactive": "#7f7f7f"
+      },
+      "gutter": {
+        "background": "#333333",
+        "foreground": "#7f7f7f"
+      },
+      "search": {
+        "matchBackground": "#cd853f",
+        "matchForeground": "#f5deb3",
+        "focusedMatchBackground": "#f0e68c",
+        "focusedMatchForeground": "#333333"
+      },
+      "statusLine": {
+        "background": "#c2bfa5",
+        "foreground": "#000000",
+        "inactiveBackground": "#4d4d4d",
+        "inactiveForeground": "#7f7f7f"
+      },
+      "splitDivider": "#7f7f7f"
+    },
+    "css_custom_properties": {
+      "--desert-bg-canvas": "#333333",
+      "--desert-bg-surface": "#4d4d4d",
+      "--desert-bg-elevated": "#666666",
+      "--desert-bg-selection": "#6b8e23",
+      "--desert-bg-search": "#cd853f",
+      "--desert-bg-search-active": "#f0e68c",
+      "--desert-bg-status": "#c2bfa5",
+      "--desert-fg-primary": "#ffffff",
+      "--desert-fg-muted": "#87ceeb",
+      "--desert-fg-subtle": "#7f7f7f",
+      "--desert-fg-accent": "#f0e68c",
+      "--desert-fg-inverse": "#000000",
+      "--desert-syntax-keyword": "#f0e68c",
+      "--desert-syntax-type": "#bdb76b",
+      "--desert-syntax-identifier": "#98fb98",
+      "--desert-syntax-constant": "#ffa0a0",
+      "--desert-syntax-preproc": "#cd5c5c",
+      "--desert-syntax-special": "#ffde9b",
+      "--desert-syntax-comment": "#87ceeb"
+    }
+  }
+}
